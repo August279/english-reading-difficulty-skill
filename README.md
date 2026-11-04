@@ -21,25 +21,33 @@
 
 ## 3. 安装方法
 
-这个 Skill 只有三个文本文件，没有脚本、不需要装依赖：
+这个 Skill 只有三个文本文件，没有脚本、不需要装依赖。仓库根目录就是技能目录，clone 下来即可直接当技能用：
 
 ```
-英语阅读困难解决-skill/
+english-reading-difficulty-skill/   ← 仓库根 = 技能根
 ├── SKILL.md                    # 主指令：三步工作流、出题禁令、判错与提示规则
 ├── agents/openai.yaml          # 展示名、简介、默认开场语（供读取该文件的客户端使用）
-└── references/sentence-bank.md # 句库：七类各 2 句，含主干/修饰/翻译/主干小测/提示
+├── references/sentence-bank.md # 句库：七类各 2 句，含主干/修饰/翻译/主干小测/提示
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
 任选一种：
 
-1. **装进 Agent 的 skills 目录**：把整个 `英语阅读困难解决-skill` 文件夹拷进去即可，例如本机豆包工作区的 `.../workspace/.user_skills/`，或 `~/.claude/skills/`、你所用 Agent 对应的 skills 目录。
-2. **不安装，直接给 Agent 读**：把 `SKILL.md`（和需要出题时的 `references/sentence-bank.md`）交给任意支持读文件的 Agent/模型，它就能按这套规则陪练。
+1. **clone 到 Agent 的 skills 目录**：
+   ```bash
+   git clone https://github.com/August279/english-reading-difficulty-skill.git \
+     <你的 skills 目录>/english-reading-difficulty-skill
+   ```
+   例如豆包工作区的 `.../workspace/.user_skills/`，或 `~/.claude/skills/`、你所用 Agent 对应的 skills 目录。目录名用 `english-reading-difficulty-skill`（与 `SKILL.md` 的 `name` 一致），clone 后无需改动结构。
+2. **不安装，直接给 Agent 读**：把 `SKILL.md`（以及出题时要用的 `references/sentence-bank.md`）交给任意支持读文件的 Agent/模型，它就能按这套规则陪练。
 
-标识说明：`SKILL.md` 里 `name: english-reading-difficulty-skill` 用英文，是因为 Skill 规范与校验脚本要求 lowercase-hyphen-case；目录名与展示名保留中文。触发靠 `description` 里的场景词——长难句、找主干、句法分析、句子结构拆解、英语阅读读不懂、分析这句话的成分。
+标识说明：`SKILL.md` 里 `name: english-reading-difficulty-skill` 用英文，是因为 Skill 规范与校验脚本要求 lowercase-hyphen-case；中文只出现在标题、说明和句库里。触发靠 `description` 里的场景词——长难句、找主干、句法分析、句子结构拆解、英语阅读读不懂、分析这句话的成分，以及启动口令“开始长难句练习”。
 
 ## 4. 使用方法
 
-1. **触发**：说"练一句长难句""帮我分析这句话的成分""我英语阅读总是读不懂长句"之类的话；也可以直接说"练定语从句""来一句插入语"。
+1. **触发**：说“开始长难句练习”，或“练一句长难句”“帮我分析这句话的成分”“我英语阅读总是读不懂长句”之类的话；也可以直接说“练定语从句”“来一句插入语”。
 2. **第 1 步｜选类型**：Skill 会列出 7 个编号让你选，可单选可混搭（如"2 和 6"）；说"随便"它会替你选并说明选了什么。
 3. **第 2 步｜自己找主干**：它只给一句英文，你要打字发回三样东西——主语（主句的）、谓语（主句的）、修饰成分（能找几处写几处，注明修饰谁、是什么成分）。不确定也照写，写错才有的可改。
 4. **第 3 步｜看批改**：拿到的是一份【主干核对】+【修饰成分】+【全句翻译】+【主干小测】。小测答完，它会问"再来一句？同类型 / 换类型 / 结束"。
@@ -82,8 +90,8 @@
 ## 附：自检
 
 ```bash
-# Windows 若遇编码问题，先设 PYTHONUTF8=1
-python quick_validate.py 英语阅读困难解决-skill
+# 在仓库根目录执行；Windows 若遇编码问题，先设 PYTHONUTF8=1
+python quick_validate.py .
 ```
 
 预期输出：`Skill is valid!`（`quick_validate.py` 是常见的 Skill frontmatter 校验脚本，随你所用 Agent 的 Skill 工具链提供，本仓库不打包。）
