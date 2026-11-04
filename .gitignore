@@ -1,0 +1,15 @@
+# 系统与编辑器产生的东西
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Python 缓存（本仓库不含脚本，留作预防）
+__pycache__/
+*.py[cod]
+
+# 本地私密配置
+.env
+.env.*

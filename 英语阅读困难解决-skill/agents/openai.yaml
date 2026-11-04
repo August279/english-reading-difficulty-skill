@@ -1,0 +1,4 @@
+interface:
+  display_name: "英语阅读困难解决"
+  short_description: "长难句主干先行训练：先自己找主语谓语和修饰成分，AI 再核对、标修饰、给翻译"
+  default_prompt: "练一句长难句，先让我自己找主干。"
